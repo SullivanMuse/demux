@@ -1,4 +1,5 @@
 use clap::Parser;
+use colored::Colorize;
 use regex::Regex;
 use std::{
     fs::File,
@@ -53,7 +54,16 @@ fn main() {
                 for _ in 0..i {
                     write!(&mut output, "        ").unwrap();
                 }
-                writeln!(&mut output, "[{}] {}", &cli.groups[i], line).unwrap();
+                let s = format!("[{}] {}", &cli.groups[i], line);
+                match i {
+                    0 => writeln!(&mut output, "{}", s.red()),
+                    1 => writeln!(&mut output, "{}", s.yellow()),
+                    2 => writeln!(&mut output, "{}", s.green()),
+                    3 => writeln!(&mut output, "{}", s.cyan()),
+                    4 => writeln!(&mut output, "{}", s.blue()),
+                    5 => writeln!(&mut output, "{}", s.purple()),
+                    _ => writeln!(&mut output, "{}", s),
+                }.unwrap();
             }
         }
     }
